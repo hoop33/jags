@@ -27,6 +27,7 @@ func main() {
 		log.Fatal(err)
 	}
 
+	fmt.Println("Player,Number,Position,Height,Weight,Age,Experience,College")
 	doc.Find("[summary='Roster']").Find("tbody tr").Each(func(i int, s *goquery.Selection) {
 		name, exists := s.Find("a").Attr("title")
 		if exists {
