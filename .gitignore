@@ -17,3 +17,7 @@
 
 
 # End of https://www.gitignore.io/api/go
+
+# Executables
+jags
+jags.exe
