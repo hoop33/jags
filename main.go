@@ -2,6 +2,7 @@ package main
 
 import (
 	"crypto/tls"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
@@ -11,14 +12,19 @@ import (
 )
 
 func main() {
-	http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	insecure := flag.Bool("insecure", false, "skip certificate verification")
+	flag.Parse()
+	if *insecure {
+		http.DefaultTransport.(*http.Transport).TLSClientConfig = &tls.Config{InsecureSkipVerify: true}
+	}
+
 	resp, err := http.Get("https://www.jaguars.com/team/players-roster/")
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	defer resp.Body.Close()
-	if resp.StatusCode != 200 {
+	if resp.StatusCode != http.StatusOK {
 		log.Fatalf("Failed to get roster from team site: %d %s", resp.StatusCode, resp.Status)
 	}
 
