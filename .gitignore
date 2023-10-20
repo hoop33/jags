@@ -21,3 +21,5 @@
 # Executables
 jags
 jags.exe
+
+vendor/
